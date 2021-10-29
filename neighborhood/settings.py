@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'neighborapp.apps.NeighborappConfig',
+    'bootstrap5',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'tinymce',
+    'cloudinary',
+    'registration',
+    
 ]
 
 MIDDLEWARE = [
