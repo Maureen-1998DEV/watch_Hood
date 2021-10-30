@@ -24,11 +24,10 @@ from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'',include('neighborhood.urls')),
+    url(r'',include('neighborapp.urls')),
     url(r'^accounts/register/',
         RegistrationView.as_view(success_url='/accounts/login'),
         name='django_registration_register'),
     url(r'^accounts/', include('django_registration.backends.one_step.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url('^logout/', views.LogoutView.as_view(), name='logout')
 ]

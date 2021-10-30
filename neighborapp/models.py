@@ -38,7 +38,8 @@ class UserProfile(models.Model):
     bio =models.CharField(max_length=300)
     profile_pic = CloudinaryField('profile/')
     pub_date = models.DateTimeField(auto_now_add=True)
-
+    neighborhood = models.ForeignKey(Neighborhood,on_delete = models.CASCADE)
+    email = models.EmailField(max_length = 60)
     def __str__(self):
         return self.user.username
 
