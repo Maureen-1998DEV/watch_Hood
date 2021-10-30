@@ -32,14 +32,16 @@ class Neighborhood(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    bio =models.CharField(max_length=300)
+    user = models.ForeignKey(User,on_delete = models.CASCADE,related_name = 'user_profile')
+    first_name = models.CharField(max_length = 50,null=True)
+    last_name = models.CharField(max_length = 50,null=True)
+    bio = models.TextField(null=True)
+    neighborhood = models.ForeignKey(Neighborhood,on_delete = models.CASCADE,null=True)
+    email = models.EmailField(max_length = 60,null=True)
     profile_pic = CloudinaryField('profile/')
     pub_date = models.DateTimeField(auto_now_add=True)
-    neighborhood = models.ForeignKey(Neighborhood,on_delete = models.CASCADE)
-    email = models.EmailField(max_length = 60)
+    
+
     def __str__(self):
         return self.user.username
 
