@@ -7,8 +7,8 @@ def send_amber_email(title,content,receiver):
     sender = 'Hood Watch'
 
     #passing in the context vairables
-    text_content = render_to_string('email/amberemail.txt',{"title": title,"content":content})
-    html_content = render_to_string('email/amberemail.html',{"title": title,"content":content})
+    text_content = render_to_string('email/email.txt',{"title": title,"content":content})
+    html_content = render_to_string('email/email.html',{"title": title,"content":content})
 
     msg = EmailMultiAlternatives(subject,text_content,sender,[receiver])
     msg.attach_alternative(html_content,'text/html')

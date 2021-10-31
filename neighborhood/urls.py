@@ -30,4 +30,6 @@ urlpatterns = [
         name='django_registration_register'),
     url(r'^accounts/', include('django_registration.backends.one_step.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    path('', include('django.contrib.auth.urls')),
+    url('^logout/', views.LogoutView.as_view(), name='logout')
 ]

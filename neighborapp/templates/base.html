@@ -1,4 +1,4 @@
-% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -7,14 +7,13 @@
         {% if title %}
         <title>HooDWATCH</title>
         {% else %}
-        <title>HooDWATCH</title>
+        <title>HoodDWATCH</title>
         {% endif %}
 
         {% block styles %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-            <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        
+
+            <link rel="stylesheet" href="{% static 'css/index.css' %}">
         {% endblock%}
     </head>
     <body>

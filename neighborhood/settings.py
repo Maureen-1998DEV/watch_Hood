@@ -103,6 +103,7 @@ cloudinary.config(
   api_secret = "3Wt8tpdjQawo6Nt2LdOtv8kWCTQ" 
 )
 
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -143,9 +144,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, "static"),
+]
 
-LOGIN_REDIRECT_URL = '/'
-
+LOGIN_REDIRECT_URL = 'index'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
