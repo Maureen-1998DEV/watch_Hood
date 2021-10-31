@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from .models import UserProfile,Post,Neighborhood,Business,Comment
@@ -91,7 +88,7 @@ def businesses(request):
     except:
         businesses = None
 
-    return render(request,'businesses.html',{"businesses":businesses,"form":form})
+    return render(request,'business.html',{"businesses":businesses,"form":form})
 @login_required
 def post(request,id):
     post = Post.objects.get(id=id)
