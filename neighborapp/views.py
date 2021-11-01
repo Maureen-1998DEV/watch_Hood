@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from .models import UserProfile,Post,Neighborhood,Business,Comment
 from django.contrib.auth.decorators import login_required
+import datetime as dt
 from .forms import UserProfileForm,BusinessForm,PostForm,CommentForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,16 +13,17 @@ from .email import send_amber_email
 @login_required
 def index(request):
     current_user = request.user
-    try:
-        profile = UserProfile.objects.get(user = current_user)
-    except:
-        return redirect('edit_profile',username = current_user.username)
+    # try:
+    #     
+    # except:
+    #     return redirect("index")
 
-    try:
-        posts = Post.objects.filter(neighborhood = profile.neighborhood)
-    except:
-        posts = None
-
+    # try:
+    profile = UserProfile.objects.get(user = current_user)
+    posts = Post.objects.filter(neighborhood = profile.neighborhood)
+    # except:
+    #     posts = None
+    
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
@@ -41,34 +43,34 @@ def index(request):
         form = PostForm()
     return render(request,'index.html',{"posts":posts,"profile":profile,"form":form})
 
-@login_required
-def edit_profile(request,username):
-    current_user = request.user
-    if request.method == 'POST':
-        try:
-            profile = UserProfile.objects.get(user=current_user)
-            form = UserProfileForm(request.POST,instance=profile)
-            if form.is_valid():
-                profile = form.save(commit=False)
-                profile.user = current_user
-                profile.save()
-            return redirect('index')
-        except:
-            form = UserProfileForm(request.POST)
-            if form.is_valid():
-                profile = form.save(commit=False)
-                profile.user = current_user
-                profile.save()
-            return redirect('index')
-    else:
-        if UserProfile.objects.filter(user=current_user):
-            profile = UserProfile.objects.get(user=current_user)
-            form = UserProfileForm(instance=profile)
-        else:
-            form = UserProfileForm()
-    return render(request,'edit_profile.html',{"form":form})
 
-@login_required
+@login_required(login_url='/accounts/login/')
+def edit_profile(request):
+    date = dt.date.today()
+    current_user = request.user
+    profile = UserProfile.objects.objects.filter(user_id=current_user.id).first()
+    posts = Post.objects.filter(user_id=current_user.id)
+    if request.method == 'POST':
+        signup_form = UserProfileForm(request.POST, request.FILES,instance=request.user.profile) 
+        if signup_form.is_valid():
+            signup_form.save()
+            return redirect('profile')
+    else:
+        signup_form =UserProfileForm() 
+        
+
+    
+    return render(request, 'profile/edit_profile.html', {"date": date, "form":signup_form,"profile":profile, "posts":posts})
+
+def profile(request):
+    date = dt.date.today()
+    current_user = request.user
+    profile = UserProfile.objects.get(user=current_user.id)
+    posts = Post.objects.filter(user=current_user)
+    return render(request, 'profile/profile.html', {"date": date, "profile":profile, "posts":posts})
+
+
+@login_required(login_url='/accounts/login/')
 def businesses(request):
     current_user = request.user
     neighborhood = UserProfile.objects.get(user = current_user).neighborhood
@@ -89,7 +91,7 @@ def businesses(request):
         businesses = None
 
     return render(request,'business.html',{"businesses":businesses,"form":form})
-@login_required
+
 def post(request,id):
     post = Post.objects.get(id=id)
     comments = Comment.objects.filter(post=post)
@@ -111,7 +113,7 @@ class BusinessList(APIView):
         serializers = BusinessSerializer(all_businesses, many=True)
         return Response(serializers.data)
 
-@login_required
+
 def search(request):
     current_user = request.user
     if 'search' in request.GET and request.GET["search"]:

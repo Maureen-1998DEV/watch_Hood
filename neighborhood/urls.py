@@ -18,17 +18,15 @@ from django.urls import path
 from django.conf.urls import url,include
 from django_registration.backends.one_step.views import RegistrationView
 from django.contrib.auth import views
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'',include('neighborapp.urls')),
-    url(r'^accounts/register/',
-        RegistrationView.as_view(success_url='/accounts/login'),
-        name='django_registration_register'),
-    url(r'^accounts/', include('django_registration.backends.one_step.urls')),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
-    url('^logout/', views.LogoutView.as_view(), name='logout')
+    url('',include('neighborapp.urls')),
+    url('^accounts/', include('registration.backends.simple.urls')),
+    url('^logout/', views.LogoutView.as_view(), name='logout'),
+    url('^api/tokens',obtain_auth_token)
 ]

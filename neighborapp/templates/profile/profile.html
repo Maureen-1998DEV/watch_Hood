@@ -1,0 +1,38 @@
+{%extends "base.html"%}
+{% load bootstrap5 %}
+{%load static%}
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div  class="col-md-8">
+            <div style="background-repeat: no-repeat; background-size: cover; background-image: url('/award_app/static/images/splash.jpg');" class="card">
+                    <div style="text-align: center; "  class="card-header">
+                        <h2> <img float="right" src="https://mbtskoudsalg.com/images/award-transparent-real-5.png" alt="" height="80px"> Edit your Profile</h2>
+                    </div>
+                    <div class="card-body">
+                        <form  action="{%url 'edit_profile'%}" method="post" enctype="multipart/form-data">
+                            {%csrf_token%}
+                            
+                            {% bootstrap_form form%}
+                            <input type="submit" class="btn btn-warning btn-lg" value="Post">
+                        </form>
+                    </div>
+                </div>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>
+
+
+
+{% block scripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% bootstrap_javascript %} {% endblock %}
+</div>
+{% endblock %}
