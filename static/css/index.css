@@ -1,32 +1,31 @@
-*{
-    color:rgb(235, 227, 227);
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
 
-}
 
 
 nav{
     height: 150px !important;
 }
 body{
-    background-image: url(../images/WI-unsplash.jpg) ;
+    background-image: url(../images/WI-unsplash.jpg) !important;
     background-repeat: no-repeat;
     background-size:cover;
     background-position: top;
-    filter:brightness(80%);
+    filter:brightness(90%);
     height: 100%;
-    font:rgb(242, 242, 245);
+    
+    font-family: 'Lobster Two', cursive;
 }
 .edit{
     font-size: 12px;
 }
 thead{
-    color: rgb(240, 11, 240);
+
     font-size: 24px;
     font-weight: 50px
 }
    
 tbody{
-    color: white;
+    
     font-size: 24px;
     font-weight: 50px;
 }
