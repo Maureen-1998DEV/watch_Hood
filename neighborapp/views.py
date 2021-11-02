@@ -10,7 +10,17 @@ from .serializer import BusinessSerializer
 from .email import send_amber_email
 
 # Create your views here.
-
+def signup(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            
+    else:
+        form = UserProfileForm()
+    return render(request, 'signup.html', {'form': form})
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -51,12 +61,11 @@ def index(request):
 def edit_profile(request):
     date = dt.date.today()
     current_user = request.user
-    profile = UserProfile.objects.objects.filter(
-        user_id=current_user.id).first()
+    profile = UserProfile.objects.filter(user_id=current_user.id).first()
     posts = Post.objects.filter(user_id=current_user.id)
     if request.method == 'POST':
         signup_form = UserProfileForm(
-            request.POST, request.FILES, instance=request.user.profile)
+            request.POST, request.FILES, instance=profile)
         if signup_form.is_valid():
             signup_form.save()
             return redirect('profile')
@@ -69,7 +78,7 @@ def edit_profile(request):
 def profile(request):
     date = dt.date.today()
     current_user = request.user
-    profile = UserProfile.objects.get(user=current_user.id)
+    profile = UserProfile.objects.filter(user_id=current_user.id)
     posts = Post.objects.filter(user=current_user)
     return render(request, 'profile/profile.html', {"date": date, "profile": profile, "posts": posts})
 
@@ -77,7 +86,7 @@ def profile(request):
 @login_required(login_url='/accounts/login/')
 def businesses(request):
     current_user = request.user
-    neighborhood = UserProfile.objects.get(user=current_user).neighborhood
+    neighborhood = UserProfile.objects.filter(user_id=current_user).first()
     if request.method == 'POST':
         form = BusinessForm(request.POST)
         if form.is_valid():
@@ -99,7 +108,7 @@ def businesses(request):
 
 def post(request, id):
     post = Post.objects.get(id=id)
-    comments = Comment.objects.filter(post=post)
+    comments = Comment.objects.filter(id=post.id)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():

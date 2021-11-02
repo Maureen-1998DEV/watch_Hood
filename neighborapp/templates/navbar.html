@@ -19,13 +19,45 @@
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <li><a href="{% url 'businesses' %}">Businesses</a></li>
+          <li><a style="color:black" href="{% url 'businesses' %}">Businesses</a></li>
         
         </li>
         <li class="nav-item">
-          <li> <a href="#contactsmodal" class="modal-trigger">Emergency Contacts</a> </li>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Emergency Contact
+          </button>
+          </li>
+<!-- Button trigger modal -->
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Emergency Contact</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h4 style="color: black;">Emergeny Contacts</h4>
+      <p style="color: black;">Police: 999 <br>Ambulance: 5674 <br>Fire Brigade: 7899</p>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
         </li>
+        <li><form class="" action="{% url 'search' %}">
+          <div id="custom-search-input">
+                <div class="input-group col-md-12 ui-widget">
+                    <input id="search" type="text" class="form-control input-lg" placeholder="Search business" name="search" />
+                </div>
+            </div>
+      </form></li>
       </ul>
 
       <ul class="navbar-nav left">
@@ -63,9 +95,7 @@
   <!-- Modal Structure -->
   <div id="contactsmodal" class="modal">
     <div class="modal-content">
-      <h4>Emergeny Contacts</h4>
-      <p>Police: 999 <br>Ambulance: 5674 <br>Fire Brigade: 7899</p>
-    </div>
+      
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
     </div>

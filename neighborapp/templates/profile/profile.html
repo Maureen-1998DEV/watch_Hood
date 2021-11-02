@@ -1,38 +1,48 @@
-{%extends "base.html"%}
-{% load bootstrap5 %}
 {%load static%}
+{% load bootstrap5 %}
 {% block content %}
+<div class="container">
+<div  style =" background-image:url(/static/images/Bunsplash.jpg);background-position: center;height: 100%;">
 
-
+  
 
 <div class="row">
-    <div class="col-md-2">
-
-    </div>
-    <div  class="col-md-8">
-            <div style="background-repeat: no-repeat; background-size: cover; background-image: url('/award_app/static/images/splash.jpg');" class="card">
-                    <div style="text-align: center; "  class="card-header">
-                        <h2> <img float="right" src="https://mbtskoudsalg.com/images/award-transparent-real-5.png" alt="" height="80px"> Edit your Profile</h2>
-                    </div>
-                    <div class="card-body">
-                        <form  action="{%url 'edit_profile'%}" method="post" enctype="multipart/form-data">
-                            {%csrf_token%}
-                            
-                            {% bootstrap_form form%}
-                            <input type="submit" class="btn btn-warning btn-lg" value="Post">
-                        </form>
-                    </div>
-                </div>
-    </div>
-    <div class="col-md-2">
-
-    </div>
+  <div class="col-md-6">
+      {% if profile.profile_pic %}
+      <section> <img  data-toggle="modal" data-target="#exampleModalCenter" style="border-radius: 50% ; padding: 0.15rem;  background: linear-gradient(to right bottom, #2cd88888, #2ec96970);" class=" img-circle"
+      src="{{ profile.profile_pic.url}}" alt="" width="250px" height="250px"> {{ photos_item.profile.user.username}}</section> 
+      {% else %}
+      <img  data-toggle="modal" data-target="#exampleModalCenter" style="border-radius: 50% ; padding: 0.15rem;   background: linear-gradient(to right bottom, #2cd88888, #2ec96970);" class=" img-circle"
+      src="https://www.bristolbrewing.com/wp-content/uploads/2017/08/default-avatar.png" alt="" width="250px" height="250px""> {{ photos_item.profile.user.username}}</section>            
+      {% endif %}
+  </div>
+  <div class="col-md-6">
+      <h4 style="color: rgb(16, 17, 17);">{{profile.user.username}}</h4>
+      <p style="color:rgb(5, 5, 5);">{{profile.bio}}</p>
+      
+      <button style="font-size:20px;border-radius: 20px; font:black;" class="btn btn-primary"> <a style="color: white;" href="/edit/profile/"> <h6 style="color:black">Edit profile</h6></a> <i class="fa fa-cog fa-spin" style="font-size:24px"></i></button>
+  </div>
 </div>
+<hr>
+{% if  posts in post%}
+<h3 style="color:white ;">My Posts</h3>
+<div class="row">
+  {% for posts_items in posts%}
+      <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">
+          
+        
+      </div>
+  {% endfor%}
+</div>
+  {% else%}
+<h1 style="color: aliceblue;">No Posts</h1>
+{% endif%}
 
+  
 
-
-{% block scripts %}
+   {% block scripts %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-{% bootstrap_javascript %} {% endblock %}
+  {% bootstrap_javascript %} {% endblock %}
+</div>
 </div>
 {% endblock %}

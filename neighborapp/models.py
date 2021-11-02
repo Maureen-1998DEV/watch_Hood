@@ -32,7 +32,7 @@ class Neighborhood(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User,on_delete = models.CASCADE,related_name = 'user_profile')
+    user = models.ForeignKey(User,on_delete = models.CASCADE,related_name = 'profile')
     first_name = models.CharField(max_length = 50,null=True)
     last_name = models.CharField(max_length = 50,null=True)
     bio = models.TextField(null=True)
@@ -82,13 +82,15 @@ class Post(models.Model):
         return self.title
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post,on_delete = models.CASCADE,null=True)
-    comment = models.TextField()
-    user = models.ForeignKey(User,on_delete = models.CASCADE)
-    pub_date = models.DateTimeField(auto_now_add=True,null=True)
+    comment = models.CharField(max_length = 300)
+    posted_on = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.comment
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
 
 class Location(models.Model):
     name = models.CharField(max_length = 40)

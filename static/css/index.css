@@ -1,4 +1,32 @@
-.container{
-    width: 80% !important;
-   padding: 500px !important;
+*{
+    color:rgb(235, 227, 227);
+
+}
+
+
+nav{
+    height: 150px !important;
+}
+body{
+    background-image: url(../images/WI-unsplash.jpg) ;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: top;
+    filter:brightness(80%);
+    height: 100%;
+    font:rgb(242, 242, 245);
+}
+.edit{
+    font-size: 12px;
+}
+thead{
+    color: rgb(240, 11, 240);
+    font-size: 24px;
+    font-weight: 50px
+}
+   
+tbody{
+    color: white;
+    font-size: 24px;
+    font-weight: 50px;
 }

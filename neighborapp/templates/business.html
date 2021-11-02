@@ -1,14 +1,15 @@
 {% include 'base.html' %}
 {%load bootstrap5%}
 {% block content %}
-    <div class="container">
+    <div style="font: aliceblue;" class="container">
         <div class="col m12">
             <button class="btn right hoverable modal-trigger" type="button" name="button" style="margin: 20px;" href="#modal1"><i class="material-icons left">add_circle_outline</i> Add</button>
+            
             {% if businesses %}
-            <table>
+            <table style="font: white;">
             <thead>
-              <tr>
-                  <th>Name</th>
+              <tr style="font: bisque;">
+                  <th style="font:white">Name</th>
                   <th>Description</th>
                   <th>Owner</th>
                   <th>Email</th>
@@ -17,8 +18,8 @@
 
             <tbody>
                 {% for business in businesses %}
-                    <tr>
-                      <td>{{business.name}}</td>
+                    <tr style="color: white;">
+                      <td style="color: white">{{business.name}}</td>
                       <td>{{business.description}}</td>
                       <td>{{business.user}}</td>
                       <td>{{business.email}}</td>
@@ -27,7 +28,7 @@
             </tbody>
           </table>
           {% else %}
-          <h1 class="center-align">There are no businesses registered in your Neighborhood</h1>
+          <h1 class="center-align" style="color:white;">There are no businesses registered in your Neighborhood</h1>
           {% endif %}
         </div>
           <!-- Modal Structure -->
@@ -37,7 +38,7 @@
               <h4>Add a Business</h4>
 
                   {% csrf_token %}
-                  {{ form }}
+                  {% bootstrap_form form%}
 
             </div>
             <div class="modal-footer">
